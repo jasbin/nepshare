@@ -1,0 +1,21 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Posts extends Model
+{
+    //setting table name manually n if we ignore this table name will be Posts by default
+    protected $table = "posts";
+
+    //primary key
+    protected $primaryKey = 'id';
+    
+    //timestamps
+    public $timestamps = true; 
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+}
