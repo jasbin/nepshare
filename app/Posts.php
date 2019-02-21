@@ -11,11 +11,14 @@ class Posts extends Model
 
     //primary key
     protected $primaryKey = 'id';
-    
-    //timestamps
-    public $timestamps = true; 
 
+    //timestamps
+    public $timestamps = true;
+    //call using $post -> user -> its attribute name
     public function user(){
         return $this->belongsTo('App\User');
+    }
+    public function comments(){
+        return $this->hasMany('App\Comment');
     }
 }

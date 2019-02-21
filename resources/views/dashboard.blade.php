@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            
+
                 <div class="card-header bg-danger text-white">Dashboard</div>
 
                 <div class="card-body">
@@ -15,8 +15,8 @@
                     @endif
                     <a href="{{route('posts.create')}}" class="btn btn-primary">Create Post</a>
                     <h3 class="mt-2">Your Blog Posts</h3>
-                    
-                        
+
+
                     @if (count($posts)>0)
                     <table class="table table-striped">
                             <tr class="bg-danger text-white">
@@ -29,7 +29,7 @@
                                 <tr>
                                     <td>{{$post->title}}</td>
                                     <td>{{$post->body}}</td>
-                                    <td><a href="{{route('posts.edit', $post->id)}}" class="btn btn-default">Edit</a></td>
+                                    <td><a href="{{route('posts.edit', $post->id)}}" class="btn btn-outline-primary">Edit</a></td>
                                     <td>
                                             {!!Form::open(['action'=>['PostsController@destroy',$post->id], 'method' => 'DELETE','class'=>'float-right']) !!}
                                             {{Form::submit('Delete', ['class'=> 'btn btn-danger']) }}
@@ -41,9 +41,9 @@
                     @else
                         <h3>No post Found</h3>
                     @endif
-                    
+
                 </div>
-            
+
         </div>
     </div>
 </div>

@@ -9,6 +9,6 @@
         @foreach ($services as $service)
             <li class="list-group-item">{{$service}}</li>
         @endforeach
-    </ul>   
+    </ul>
     @endif
 @endsection

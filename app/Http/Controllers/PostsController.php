@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Posts;
+use App\Comment;
 class PostsController extends Controller
 {
     /**
@@ -25,10 +26,11 @@ class PostsController extends Controller
     {
         //$posts = Posts::all();
 
-        // gets post in asc order by title we can write id here too 
+        // gets post in asc order by title we can write id here too
         //$posts = Posts::orderBy('created_at',  'desc')->get();
         //paginate
         $posts = Posts::orderBy('created_at',  'desc')->paginate(3);  //note if paginate(3) then paginate appears after post is >3
+
         return view('posts.index',compact('posts'));
     }
 
@@ -40,6 +42,23 @@ class PostsController extends Controller
     public function create()
     {
         return view('posts.create');
+    }
+
+    public function comment(Request $request, $id, $user)
+    {
+        /*
+            task remaining
+            1.delete own comment not others
+        */
+        $this -> validate($request,[
+            'comment' => 'required'
+        ]);
+        $comment = new Comment;
+        $comment->posts_id = $id;
+        $comment->body = $request->input('comment');
+        $comment->comment_by = $user;
+        $comment->save();
+        return redirect('/posts/'.$id)->with('success','comment successful');
     }
 
     /**
@@ -103,7 +122,7 @@ class PostsController extends Controller
         $post = Posts::find($id);
 
         if(auth()->user()->id != $post->user_id){
-            return redirect('/posts')->with('error', "You are not Authorized to edit others post"); 
+            return redirect('/posts')->with('error', "You are not Authorized to edit others post");
         }
 
         return view('posts.edit')->with('post', $post);
@@ -158,14 +177,23 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
+        //deleting all post of user
         $post = Posts::find($id);
+        //fetch all comment related with the post
+        $comment =Comment::select()->where('posts_id',$id);
+
         if(auth()->user()->id != $post->user_id){
-            return redirect('/posts')->with('error', "You are not Authorized to delete others post"); 
+            return redirect('/posts')->with('error', "You are not Authorized to delete others post");
         }
         if($post->cover_image != 'noimage.jpg'){
             Storage::delete('public/cover_image/'.$post->cover_image);
         }
+        
+        //delete post
         $post->delete();
+        //delete the comment related with the post
+        $comment->delete();
+
         return redirect('/dashboard')->with('success', "Post Deleted Successfully");
     }
 }
