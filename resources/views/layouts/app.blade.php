@@ -26,9 +26,21 @@
                     @yield('content')
 
             </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
         <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
         <script>
         CKEDITOR.replace( 'article-ckeditor' );
         </script>
+
+
+
+             {{-- <script>
+                $('.read_more').click(function(e){
+                    $this=$(this);
+                    $this.siblings('.before_read_more').hide()
+                    $this.siblings('.after_read_more').show()
+                })
+            </script> --}}
 </body>
 </html>

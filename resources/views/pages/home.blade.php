@@ -29,7 +29,11 @@
                         </div>
                         <div class="col-md-8 col-sm-8">
                             <h3><a href="{{route('posts.show', $post->id)}}">{{$post->title}}</a></h3>
-                            <p>{!!$post->body!!} </p>
+                            {{-- <p>{!! substr( $post->body, 0, random_int(60, 150)) !!}</p> --}}
+                        <p>{!!str_limit($post->body, $limit = 60, $end = '...') !!}
+                        </p>
+                        <br>
+                        <a href="{{route('posts.show', $post->id)}}" class="btn btn-primary btn-sm" role="button">Read More</a><br> 
                             <small>posted on {{$post->created_at}} by {{$post->user->name}}</small>
                         </div>
                     </div>
@@ -39,4 +43,5 @@
     @else
         <h3>No Post Found</h3>
     @endif
+
 @endsection
