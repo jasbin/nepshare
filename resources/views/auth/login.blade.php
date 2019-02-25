@@ -66,6 +66,11 @@
                         </div>
                     </form>
                 </div>
+                <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <a href="{{route('googlelogin')}}" class="btn btn-primary btn-sm mb-3" role="button">Login with Google</a>
+                         </div>
+                    </div>
             </div>
         </div>
     </div>

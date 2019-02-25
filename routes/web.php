@@ -22,3 +22,5 @@ Route::get('/dashboard', 'DashboardController@index');
 Route::get('/generatetable', 'GenerateTables@index');
 Route::post('/posts/comment/{id}/{user}', 'PostsController@comment');
 
+Route::get('/login/google/','Auth\LoginController@redirectToGoogle')->name('googlelogin');
+Route::get('/login/google/callback','Auth\LoginController@handleGoogleCallback')->name('googlecallback');
